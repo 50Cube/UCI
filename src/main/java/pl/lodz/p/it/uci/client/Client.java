@@ -2,16 +2,16 @@ package pl.lodz.p.it.uci.client;
 
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
-import pl.lodz.p.it.uci.wsdl.GetTpUserInfo;
-import pl.lodz.p.it.uci.wsdl.GetTpUserInfoResponse;
+import pl.lodz.p.it.uci.wsdl.VerifySignature;
+import pl.lodz.p.it.uci.wsdl.VerifySignatureResponse;
 
 public class Client extends WebServiceGatewaySupport {
 
-    public GetTpUserInfoResponse getResponse(String tgsid) {
-        GetTpUserInfo request = new GetTpUserInfo();
-        request.setTgsid(tgsid);
-        return (GetTpUserInfoResponse) getWebServiceTemplate()
-                .marshalSendAndReceive("https://pz.gov.pl/pz-services/tpUserInfo", request,
-                new SoapActionCallback(""));
+    public VerifySignatureResponse verify(byte[] file) {
+        VerifySignature request = new VerifySignature();
+        request.setDoc(file);
+        return (VerifySignatureResponse) getWebServiceTemplate()
+                .marshalSendAndReceive("https://pz.gov.pl/pz-services/SignatureVerification", request,
+                        new SoapActionCallback(""));
     }
 }

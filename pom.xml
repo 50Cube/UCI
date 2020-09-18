@@ -94,7 +94,7 @@
 					<generatePackage>pl.lodz.p.it.uci.wsdl</generatePackage>
 					<schemas>
 						<schema>
-							<url>https://pz.gov.pl/pz-services/tpUserInfo?wsdl</url>
+							<url>https://pz.gov.pl/pz-services/SignatureVerification?wsdl</url>
 						</schema>
 					</schemas>
 				</configuration>
