@@ -1,9 +1,11 @@
 package pl.lodz.p.it.uci.configuration;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import pl.lodz.p.it.uci.client.Client;
 
+@Configuration
 public class ClientConfiguration {
 
     @Bean
