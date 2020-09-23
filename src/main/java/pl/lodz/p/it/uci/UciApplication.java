@@ -14,12 +14,12 @@ public class UciApplication {
 		SpringApplication.run(UciApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner lookup(Client client) {
-		return args -> {
-			byte[] document = "base64".getBytes();
-			VerifySignatureResponse response = client.verify(document);
-			System.out.println("OUTPUT VALUE: " + response.getVerifySignatureReturn());
-		};
-	}
+//	@Bean
+//	CommandLineRunner lookup(Client client) {
+//		return args -> {
+//			byte[] document = "base64".getBytes();
+//			VerifySignatureResponse response = client.verify(document);
+//			System.out.println("OUTPUT VALUE: " + response.getVerifySignatureReturn());
+//		};
+//	}
 }

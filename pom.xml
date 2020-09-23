@@ -38,6 +38,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
@@ -66,6 +72,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.12</version>
 		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -92,9 +104,6 @@
 					<generatePackage>pl.lodz.p.it.uci.wsdl</generatePackage>
 					<schemas>
 						<schema>
-<!--							srodowisko testowe-->
-<!--							<url>https://int.pz.gov.pl/pz-services/SignatureVerification?wsdl</url>-->
-<!--							srodowisko produkcyjne-->
 							<url>https://pz.gov.pl/pz-services/SignatureVerification?wsdl</url>
 						</schema>
 					</schemas>
