@@ -40,10 +40,29 @@ public class DocumentService {
 
             if(document.getRootElement().getChildren().stream().noneMatch(element -> element.getName().equals("Signature")))
                 throw new FileException("File doest not contain signature element");
-            
+
+
+            try {
+                findElementRecursively(document.getRootElement(), "DaneZPOsobyFizycznej");
+            } catch (RuntimeException e) {
+                // break recursive loop
+            }
+            if(this.element != null) {
+                for(Element element : this.element.getChildren())
+                    log.info(element.getName());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private void findElementRecursively(Element elementParam, String name) {
+        for(Element listElement : elementParam.getChildren()) {
+            if(listElement.getName().equals(name)) {
+                this.element = listElement;
+                throw new RuntimeException();
+            }
+            findElementRecursively(listElement, name);
+        }
+    }
 }
