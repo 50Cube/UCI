@@ -1,20 +1,49 @@
 package pl.lodz.p.it.uci.services;
 
+
 import lombok.extern.java.Log;
+import org.apache.commons.io.FilenameUtils;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import pl.lodz.p.it.uci.exceptions.FileException;
 
-import java.util.Objects;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 @Log
 @Service
 public class DocumentService {
 
+    private Element element;
+
     public void uploadFile(MultipartFile file) throws FileException {
-        String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         if(file.isEmpty()) throw new FileException("File is empty");
-        log.info(filename);
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        if(!extension.equals("xml")) throw new FileException("Wrong file extension, .xml is required");
+
+        try {
+            InputStream inputStream = file.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder stringBuilder = new StringBuilder();
+            String inline;
+            while ((inline = bufferedReader.readLine()) != null)
+                stringBuilder.append(inline);
+
+            log.info("file content: " + stringBuilder.toString());
+            SAXBuilder builder = new SAXBuilder();
+            Document document = builder.build(new ByteArrayInputStream(stringBuilder.toString().getBytes()));
+
+            if(document.getRootElement().getChildren().stream().noneMatch(element -> element.getName().equals("Signature")))
+                throw new FileException("File doest not contain signature element");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 }
